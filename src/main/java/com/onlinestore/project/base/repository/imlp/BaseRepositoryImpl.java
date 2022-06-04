@@ -41,7 +41,11 @@ public abstract class BaseRepositoryImpl<T, C> implements BaseRepository<T, C> {
     }
 
     @Override
-    public C find(T id) {
+    public C find(T t) {
+        em = emf.createEntityManager();
+        em.getTransaction().begin();
+        //em.find();
+        em.getTransaction().commit();
         return null;
     }
 
