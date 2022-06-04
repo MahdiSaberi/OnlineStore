@@ -37,8 +37,9 @@ public class Menu {
 
         User user = new User(firstName,lastName,userame,password);
 
-        user.setAddress(new Address(street,postalCode));
+        //user.setAddress(new Address(street,postalCode));
         user.setEmail(email);
+        context.getUserRepository().initUser(user);
     }
 
     public void productMenu() {

@@ -2,6 +2,7 @@ package com.onlinestore.project.base.util;
 
 import com.onlinestore.project.base.repository.CategoryRepository;
 import com.onlinestore.project.base.repository.ProductRepository;
+import com.onlinestore.project.base.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,6 +13,7 @@ public class ApplicationContext {
 
     private CategoryRepository categoryRepository = null;
     private ProductRepository productRepository = null;
+    private UserRepository userRepository = null;
 
     private Scanner intScanner = null;
     private Scanner stringScanner = null;
@@ -32,6 +34,13 @@ public class ApplicationContext {
             this.productRepository = new ProductRepository(emf);
 
         return productRepository;
+    }
+
+    public UserRepository getUserRepository() {
+        if(userRepository == null)
+            this.userRepository = new UserRepository(emf);
+
+        return userRepository;
     }
 
     public Scanner getIntScanner() {
