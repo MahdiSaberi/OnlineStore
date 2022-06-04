@@ -1,5 +1,7 @@
 package com.onlinestore.project.base.domain;
 
+import java.util.Set;
+
 public class Product<ID extends BaseDomain> extends BaseDomain {
 
     private ID id;
@@ -11,6 +13,8 @@ public class Product<ID extends BaseDomain> extends BaseDomain {
     private Long quantity;
 
     private Category category;
+
+    private Set<Cart> cartSet;
 
     public Product() {
     }
@@ -54,5 +58,13 @@ public class Product<ID extends BaseDomain> extends BaseDomain {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Set<Cart> getCartSet() {
+        return cartSet;
+    }
+
+    public void setCartSet(Set<Cart> cartSet) {
+        this.cartSet = cartSet;
     }
 }
