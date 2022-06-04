@@ -8,16 +8,13 @@ import javax.persistence.EntityManagerFactory;
 
 public class CategoryRepository extends BaseRepositoryImpl<Object, Category> {
 
-    private Category[] categories;
+    private static final Category[] categories = new Category[3];
 
     public CategoryRepository(EntityManagerFactory emf) {
         super(emf);
     }
 
     public void initCategory(){
-        if(categories == null)
-            this.categories = new Category[3];
-
         categories[0] = new Category("Readable");
         categories[1] = new Category("Wearable");
         categories[2] = new Category("Electrical");
