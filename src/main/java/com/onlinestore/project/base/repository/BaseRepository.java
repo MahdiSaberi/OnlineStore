@@ -2,10 +2,13 @@ package com.onlinestore.project.base.repository;
 
 import com.onlinestore.project.base.domain.BaseDomain;
 
-public interface BaseRepository<ID, T extends BaseDomain<ID>> {
-    T save(T t);
+public interface BaseRepository<T,C> {
 
-    T delete(T t);
+    C add(T t);
 
-    T find(T t);
+    C save(T t);
+
+    C delete(T t);
+
+    C find(T t);
 }

@@ -1,13 +1,23 @@
 package com.onlinestore.project.base.domain;
 
-public abstract class BaseDomain<ID> {
-    private ID id;
+public abstract class BaseDomain<T> {
+    private Long id;
 
-    public ID getId() {
+    private String name;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(ID id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
