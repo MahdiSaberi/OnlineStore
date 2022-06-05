@@ -3,11 +3,34 @@ package com.onlinestore.project.base.util;
 import com.onlinestore.project.base.domain.Address;
 import com.onlinestore.project.base.domain.User;
 
+import javax.persistence.TypedQuery;
+
+
 public class Menu {
     ApplicationContext context = new ApplicationContext();
 
     //First Menu
     public void loginMenu() {
+        System.out.println("Username:");
+        String username = context.getStringScanner().nextLine();
+
+        System.out.println("Password:");
+        String password = context.getStringScanner().nextLine();
+
+        String findUserAndPassQuery = "from User where username=:username and password=:password";
+
+        TypedQuery<User> query = context.getEntityManagerFactory().createEntityManager().createQuery(findUserAndPassQuery, User.class);
+
+        query.setParameter("username",username);
+        query.setParameter("password",password);
+
+        try {
+            User user = query.getSingleResult();
+            System.out.println("You Login Successfully!");
+        }catch (Exception e){
+            System.out.println("Wrong Username or Password!");
+        }
+
     }
 
     public void registerMenu() {
