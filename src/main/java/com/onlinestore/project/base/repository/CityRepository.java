@@ -1,5 +1,7 @@
-package com.onlinestore.project.base.domain;
+package com.onlinestore.project.base.repository;
 
+import com.onlinestore.project.base.domain.Category;
+import com.onlinestore.project.base.domain.City;
 import com.onlinestore.project.base.repository.imlp.BaseRepositoryImpl;
 
 import javax.persistence.EntityManagerFactory;
