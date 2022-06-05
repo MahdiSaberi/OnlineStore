@@ -1,6 +1,5 @@
 package com.onlinestore.project.base.repository;
 
-import com.onlinestore.project.base.domain.Category;
 import com.onlinestore.project.base.domain.Product;
 import com.onlinestore.project.base.repository.imlp.BaseRepositoryImpl;
 
@@ -15,24 +14,23 @@ public class ProductRepository extends BaseRepositoryImpl<Object, Product> {
     }
 
     public void initProduct(){
-        products[0] = new Product("Shoes","Sport",50L,100L,2);
-        products[1] = new Product("Shoes","Formal",60L,100L,2);
+        products[0] = new Product("Shoes","Sport",50L,100L);
+        products[1] = new Product("Shoes","Formal",60L,100L);
 
-        products[2] = new Product("Radio","Samsung",180L,100L,3);
-        products[3] = new Product("Radio","Pioneer",150L,100L,3);
+        products[2] = new Product("Radio","Samsung",180L,100L);
+        products[3] = new Product("Radio","Pioneer",150L,100L);
 
-        products[4] = new Product("Television","LG",300L,100L,3);
-        products[5] = new Product("Television","X-VISION",250L,100L,3);
+        products[4] = new Product("Television","LG",300L,100L);
+        products[5] = new Product("Television","X-VISION",250L,100L);
 
-        products[6] = new Product("Magazine","Science",10L,100L,1);
-        products[7] = new Product("Magazine","Political",15L,100L,1);
+        products[6] = new Product("Magazine","Science",10L,100L);
+        products[7] = new Product("Magazine","Political",15L,100L);
 
-        products[8] = new Product("Book","Novel",20L,100L,1);
-        products[9] = new Product("Book","History",25L,100L,1);
+        products[8] = new Product("Book","Novel",20L,100L);
+        products[9] = new Product("Book","History",25L,100L);
 
         for(Product p : products)
             add(p);
-
     }
 
 }
