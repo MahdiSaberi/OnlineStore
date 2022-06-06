@@ -179,8 +179,13 @@ public class Menu {
 
         List<Cart> cart = query.getResultList();
 
-        for(Cart c : cart)
-            System.out.println(c.getProduct().getName());
+        for(Cart c : cart){
+            System.out.println("============================");
+            System.out.print(c.getId()+". "+c.getProduct().getName());
+            System.out.println("Quantity: "+c.getQuantity()+"\tPrice: "+c.getProduct().getPrice());
+        }
+        System.out.println("============================");
+
     }
 
     public void userAddProductMenu(User user){
