@@ -1,23 +1,39 @@
 package com.onlinestore.project.base.domain;
 
-public class Address<ID extends BaseDomain> extends BaseDomain {
+import javax.persistence.*;
 
-    private ID id;
+@Entity
+public class Address extends BaseDomain {
 
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column(name = "street")
     private String street;
 
+    @Column(name = "postal_code")
     private String postalCode;
 
+
+    @ManyToOne
+    @JoinColumn(name = "c_id")
     private City city;
 
     public Address() {
     }
 
-    public ID getId() {
+    public Address(String street, String postalCode, City city) {
+        this.street = street;
+        this.postalCode = postalCode;
+        this.city = city;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(ID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,4 +60,5 @@ public class Address<ID extends BaseDomain> extends BaseDomain {
     public void setCity(City city) {
         this.city = city;
     }
+
 }

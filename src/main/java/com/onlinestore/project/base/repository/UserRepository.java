@@ -6,7 +6,7 @@ import com.onlinestore.project.base.repository.imlp.BaseRepositoryImpl;
 
 import javax.persistence.EntityManagerFactory;
 
-public class UserRepository extends BaseRepositoryImpl<Object, Category> {
+public class UserRepository extends BaseRepositoryImpl<Object, User> {
 
     private User user;
 

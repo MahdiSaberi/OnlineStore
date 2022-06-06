@@ -1,24 +1,33 @@
 package com.onlinestore.project.base.domain;
 
+import javax.persistence.*;
 import java.util.List;
+@Entity
+public class Category extends BaseDomain<Long> {
 
-public class Category<ID extends BaseDomain> extends BaseDomain {
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    private ID id;
-
+    @Column
     private String name;
 
+    @OneToMany(mappedBy = "category")
     private List<Product> products;
 
     public Category() {
     }
 
+    public Category(String name) {
+        this.name = name;
+    }
+
     @Override
-    public ID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(ID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -33,6 +42,8 @@ public class Category<ID extends BaseDomain> extends BaseDomain {
     public List<Product> getProducts() {
         return products;
     }
+
+
 
     public void setProducts(List<Product> products) {
         this.products = products;

@@ -6,7 +6,7 @@ import com.onlinestore.project.base.repository.imlp.BaseRepositoryImpl;
 
 import javax.persistence.EntityManagerFactory;
 
-public class AddressRepository extends BaseRepositoryImpl<Object, Category> {
+public class AddressRepository extends BaseRepositoryImpl<Object, Address> {
 
     public AddressRepository(EntityManagerFactory emf) {
         super(emf);

@@ -1,30 +1,60 @@
 package com.onlinestore.project.base.domain;
 
+import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
-public class Product<ID extends BaseDomain> extends BaseDomain {
+@Entity
+public class Product extends BaseDomain {
 
-    private ID id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
+    @Column
     private String name;
 
+    @Column
+    private String model;
+
+    @Column
     private Long price;
 
-    private Long quantity;
+    @Column
+    private Integer quantity;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
-    private Set<Cart> cartSet;
+    @OneToMany
+    //@JoinColumn(name = "cart_id")
+    private List<Cart> cart;
 
     public Product() {
     }
 
+    public Product(String name, String model, Long price, Integer quantity) {
+        this.name = name;
+        this.model = model;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public Product(Long id,String name, String model, Long price, Integer quantity) {
+        this.id = id;
+        this.name = name;
+        this.model = model;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     @Override
-    public ID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(ID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -36,6 +66,10 @@ public class Product<ID extends BaseDomain> extends BaseDomain {
         this.name = name;
     }
 
+    public String getModel() {return model;}
+
+    public void setModel(String model) {this.model = model;}
+
     public Long getPrice() {
         return price;
     }
@@ -44,11 +78,13 @@ public class Product<ID extends BaseDomain> extends BaseDomain {
         this.price = price;
     }
 
-    public Long getQuantity() {
+
+
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -60,11 +96,20 @@ public class Product<ID extends BaseDomain> extends BaseDomain {
         this.category = category;
     }
 
-    public Set<Cart> getCartSet() {
-        return cartSet;
+    public List<Cart> getCart() {
+        return cart;
     }
 
-    public void setCartSet(Set<Cart> cartSet) {
-        this.cartSet = cartSet;
+    public void setCart(List<Cart> cart) {
+        this.cart = cart;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
     }
 }

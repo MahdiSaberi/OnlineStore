@@ -1,30 +1,72 @@
 package com.onlinestore.project.base.domain;
 
+import javax.persistence.*;
 import java.util.Set;
 
-public class Cart <ID extends BaseDomain> extends BaseDomain{
+@Entity
+public class Cart extends BaseDomain{
 
-    private ID id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    private Set<Product> productSet;
+    @OneToOne//(mappedBy = "cart")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @Column
+    private Integer quantity;
 
     public Cart() {
     }
 
+    public Cart(User user) {
+        this.user = user;
+    }
+
     @Override
-    public ID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(ID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Set<Product> getProductSet() {
-        return productSet;
+    public User getUser() {
+        return user;
     }
 
-    public void setProductSet(Set<Product> productSet) {
-        this.productSet = productSet;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", user=" + user +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                '}';
     }
 }

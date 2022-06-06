@@ -1,30 +1,53 @@
 package com.onlinestore.project.base.domain;
 
-public class User<ID extends BaseDomain> extends BaseDomain{
+import javax.persistence.*;
 
-    private ID id;
+@Entity
+@Table(name = "user_table",uniqueConstraints = @UniqueConstraint
+        (name="username_unique",columnNames = "username"))
+public class User extends BaseDomain{
 
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "username")
     private String username;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "email")
     private String email;
 
+    @OneToOne
     private Address address;
+
+    @OneToOne//(mappedBy = "user")
+    private Cart cart;
 
 
     public User() {
     }
 
-    public ID getId() {
+    public User(String firstName, String lastName, String username, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(ID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -74,5 +97,15 @@ public class User<ID extends BaseDomain> extends BaseDomain{
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

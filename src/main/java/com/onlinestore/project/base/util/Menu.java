@@ -1,19 +1,17 @@
 package com.onlinestore.project.base.util;
 
-import com.onlinestore.project.base.domain.Address;
-import com.onlinestore.project.base.domain.Product;
-import com.onlinestore.project.base.domain.User;
+import com.onlinestore.project.base.domain.*;
+import com.onlinestore.project.base.repository.CartRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-
+import java.util.List;
 
 public class Menu {
     ApplicationContext context = new ApplicationContext();
 
     //First Menu
-
     public void firstMenu(){
         System.out.println("Welcome to Online Store\n1.Login\n2.Register\n3.Products\n4.Exit");
         int select = context.getIntScanner().nextInt();
@@ -78,7 +76,7 @@ public class Menu {
         String password = context.getStringScanner().nextLine();
 
         System.out.println("City:");
-        String city = context.getStringScanner().nextLine();
+        String cityName = context.getStringScanner().nextLine();
 
         System.out.println("Street:");
         String street = context.getStringScanner().nextLine();
@@ -90,27 +88,41 @@ public class Menu {
         String email = context.getStringScanner().nextLine();
 
         User user = new User(firstName,lastName,userame,password);
-
-        //user.setAddress(new Address(street,postalCode));
         user.setEmail(email);
+
+        Cart cart = new Cart();
+        context.getCartRepository().initCart(cart);
+        user.setCart(cart);
+
+
+        City city = new City(cityName);
+        context.getCityRepository().initCity(city);
+        Address address = new Address(street,postalCode,city);
+        context.getAddressRepository().initAddress(address);
+        user.setAddress(address);
+
         context.getUserRepository().initUser(user);
 
         System.out.println("You Registered Successfully!");
         System.out.println("Welcome, "+user.getFirstName());
         userMenu(user);
+
+
     }
 
     public void productMenu() {
         System.out.println("List of Products:");
-        String findProductsQuery = "select new Product(name,model,price,quantity) from Product";
+
+        String findProductsQuery = "select new Product(id,name,model,price,quantity) from Product";
         TypedQuery<Product> query = context.getEntityManagerFactory().createEntityManager().createQuery(findProductsQuery, Product.class);
         ArrayList<Product> entries = (ArrayList<Product>) query.getResultList();
+
         for(Product e : entries){
             System.out.println("=================================");
+            System.out.print(e.getId()+". ");
             System.out.println(e.getName()+"\tTitle: "+e.getModel()+"\nQuantity: "+e.getQuantity()+"\tPrice: "+e.getPrice());
         }
         System.out.println("=================================");
-
 
     }
     //End First Menu
@@ -138,13 +150,53 @@ public class Menu {
     public void userProductMenu(User user){
         productMenu();
         System.out.println("1.Add\n2.Remove\n3.Settle\n4.See Cart\n5.Back");
+        int select = context.getIntScanner().nextInt();
+
+        switch (select){
+            case 1:
+                userAddProductMenu(user);
+                break;
+            case 2:
+                userRemProductMenu(user);
+                break;
+            case 3:
+                userSettle(user);
+                break;
+            case 4:
+                userCartMenu(user);
+            case 5:
+                userMenu(user);
+                break;
+        }
     }
 
     public void userCartMenu(User user){
         System.out.println(user.getFirstName()+"'s Cart Status:");
 
+        String findProductsInCartQuery = "from Cart where user=:user";
+        TypedQuery<Cart> query = context.getEntityManagerFactory().createEntityManager().createQuery(findProductsInCartQuery, Cart.class);
+        query.setParameter("user",user);
+
+        List<Cart> cart = query.getResultList();
+
+        for(Cart c : cart)
+            System.out.println(c.getProduct().getName());
     }
 
+    public void userAddProductMenu(User user){
+        System.out.println("Choose product by ID:");
+        context.getCartRepository().addProduct(user);
+    }
+
+    public void userRemProductMenu(User user){
+        System.out.println("Choose product by ID:");
+        context.getCartRepository().removeProduct(user);
+    }
+
+    public void userSettle(User user){
+        System.out.println("Settled!");
+        context.getCartRepository().settle(user);
+    }
     //End User Menu
     //
 }
