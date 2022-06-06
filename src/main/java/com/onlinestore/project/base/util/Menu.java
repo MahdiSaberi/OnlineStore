@@ -120,8 +120,6 @@ public class Menu {
 
         if(user.getUsername() == null)
             firstMenu();
-        else
-            userMenu(user);
 
     }
     //End First Menu
