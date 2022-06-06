@@ -2,7 +2,6 @@ package com.onlinestore.project.base.util;
 
 import com.onlinestore.project.base.domain.*;
 import com.onlinestore.project.base.repository.CartRepository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class Menu {
                 break;
 
             case 3:
-                productMenu();
+                productMenu(new User());
                 break;
 
             case 4:
@@ -90,11 +89,6 @@ public class Menu {
         User user = new User(firstName,lastName,userame,password);
         user.setEmail(email);
 
-        Cart cart = new Cart();
-        context.getCartRepository().initCart(cart);
-        user.setCart(cart);
-
-
         City city = new City(cityName);
         context.getCityRepository().initCity(city);
         Address address = new Address(street,postalCode,city);
@@ -110,7 +104,7 @@ public class Menu {
 
     }
 
-    public void productMenu() {
+    public void productMenu(User user) {
         System.out.println("List of Products:");
 
         String findProductsQuery = "select new Product(id,name,model,price,quantity) from Product";
@@ -123,7 +117,11 @@ public class Menu {
             System.out.println(e.getName()+"\tTitle: "+e.getModel()+"\nQuantity: "+e.getQuantity()+"\tPrice: "+e.getPrice());
         }
         System.out.println("=================================");
-        firstMenu();
+
+        if(user.getUsername() == null)
+            firstMenu();
+        else
+            userMenu(user);
 
     }
     //End First Menu
@@ -149,7 +147,7 @@ public class Menu {
     }
 
     public void userProductMenu(User user){
-        productMenu();
+        productMenu(user);
         System.out.println("1.Add\n2.Remove\n3.Settle\n4.See Cart\n5.Back");
         int select = context.getIntScanner().nextInt();
 
@@ -183,7 +181,7 @@ public class Menu {
         for(Cart c : cart){
             System.out.println("============================");
             System.out.print(c.getId()+". "+c.getProduct().getName());
-            System.out.println("Quantity: "+c.getQuantity()+"\tPrice: "+c.getProduct().getPrice());
+            System.out.println("\tQuantity: "+c.getQuantity()+"\tPrice: "+c.getProduct().getPrice());
         }
         System.out.println("============================");
 
