@@ -177,12 +177,14 @@ public class Menu {
         query.setParameter("user",user);
 
         List<Cart> cart = query.getResultList();
-
+        Long totalPrice = 0L;
         for(Cart c : cart){
             System.out.println("============================");
             System.out.print(c.getId()+". "+c.getProduct().getName());
             System.out.println("\tQuantity: "+c.getQuantity()+"\tPrice: "+c.getProduct().getPrice());
+            totalPrice = totalPrice + c.getProduct().getPrice()*c.getQuantity();
         }
+        System.out.println("Total Price: "+totalPrice);
         System.out.println("============================");
 
         userMenu(user);
