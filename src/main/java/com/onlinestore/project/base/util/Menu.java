@@ -13,7 +13,7 @@ public class Menu {
 
     //First Menu
     public void firstMenu(){
-        System.out.println("Welcome to Online Store\n1.Login\n2.Register\n3.Products\n4.Exit");
+        System.out.println("First Menu:\n1.Login\n2.Register\n3.Products\n4.Exit");
         int select = context.getIntScanner().nextInt();
 
         switch (select){
@@ -123,6 +123,7 @@ public class Menu {
             System.out.println(e.getName()+"\tTitle: "+e.getModel()+"\nQuantity: "+e.getQuantity()+"\tPrice: "+e.getPrice());
         }
         System.out.println("=================================");
+        firstMenu();
 
     }
     //End First Menu
@@ -186,21 +187,26 @@ public class Menu {
         }
         System.out.println("============================");
 
+        userMenu(user);
+
     }
 
     public void userAddProductMenu(User user){
         System.out.println("Choose product by ID:");
         context.getCartRepository().addProduct(user);
+        userMenu(user);
     }
 
     public void userRemProductMenu(User user){
         System.out.println("Choose product by ID:");
         context.getCartRepository().removeProduct(user);
+        userMenu(user);
     }
 
     public void userSettle(User user){
         System.out.println("Settled!");
         context.getCartRepository().settle(user);
+        userMenu(user);
     }
     //End User Menu
     //
