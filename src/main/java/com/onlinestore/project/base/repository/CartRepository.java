@@ -31,6 +31,7 @@ public class CartRepository extends BaseRepositoryImpl<Object, Cart> {
         User u = em.find(User.class,userId);
         Product p = em.find(Product.class,productId);
 
+
         String firstTimeProduct = "from Cart where user=:user and product=:product";
         TypedQuery<Cart> query = context.getEntityManagerFactory().createEntityManager().createQuery(firstTimeProduct, Cart.class);
         query.setParameter("user",u);
@@ -62,7 +63,6 @@ public class CartRepository extends BaseRepositoryImpl<Object, Cart> {
                     newC.setQuantity(c.getQuantity()+1);
                     newC.setUser(u);
                     initCart(newC);
-
                     break;
                 }
             }
@@ -131,6 +131,23 @@ public class CartRepository extends BaseRepositoryImpl<Object, Cart> {
             em.getTransaction().commit();
         }
 
+    }
+
+    public void printCart(User user){
+        String findProductsInCartQuery = "from Cart where user=:user";
+        TypedQuery<Cart> query = context.getEntityManagerFactory().createEntityManager().createQuery(findProductsInCartQuery, Cart.class);
+        query.setParameter("user",user);
+
+        List<Cart> cart = query.getResultList();
+        Long totalPrice = 0L;
+        for(Cart c : cart){
+            System.out.println("============================");
+            System.out.print(c.getId()+". "+c.getProduct().getName());
+            System.out.println("\tQuantity: "+c.getQuantity()+"\tPrice: "+c.getProduct().getPrice());
+            totalPrice = totalPrice + c.getProduct().getPrice()*c.getQuantity();
+        }
+        System.out.println("Total Price: "+totalPrice);
+        System.out.println("============================");
     }
 
 }

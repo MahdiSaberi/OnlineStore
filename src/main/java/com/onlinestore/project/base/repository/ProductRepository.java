@@ -2,10 +2,15 @@ package com.onlinestore.project.base.repository;
 
 import com.onlinestore.project.base.domain.Product;
 import com.onlinestore.project.base.repository.imlp.BaseRepositoryImpl;
+import com.onlinestore.project.base.util.ApplicationContext;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 
 public class ProductRepository extends BaseRepositoryImpl<Object, Product> {
+
+    ApplicationContext context = new ApplicationContext();
 
     private static final Product[] products = new Product[10];
 
@@ -31,6 +36,19 @@ public class ProductRepository extends BaseRepositoryImpl<Object, Product> {
 
         for(Product p : products)
             add(p);
+    }
+
+    public void printProducts(){
+        String findProductsQuery = "select new Product(id,name,model,price,quantity) from Product";
+        TypedQuery<Product> query = context.getEntityManagerFactory().createEntityManager().createQuery(findProductsQuery, Product.class);
+        ArrayList<Product> entries = (ArrayList<Product>) query.getResultList();
+
+        for(Product e : entries){
+            System.out.println("=================================");
+            System.out.print(e.getId()+". ");
+            System.out.println(e.getName()+"\tTitle: "+e.getModel()+"\nQuantity: "+e.getQuantity()+"\tPrice: "+e.getPrice());
+        }
+        System.out.println("=================================");
     }
 
 }

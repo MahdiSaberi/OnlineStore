@@ -85,42 +85,36 @@ public class Menu {
 
         System.out.println("Email:");
         String email = context.getStringScanner().nextLine();
-
-        User user = new User(firstName,lastName,userame,password);
+    try {
+        User user = new User(firstName, lastName, userame, password);
         user.setEmail(email);
 
         City city = new City(cityName);
         context.getCityRepository().initCity(city);
-        Address address = new Address(street,postalCode,city);
+        Address address = new Address(street, postalCode, city);
         context.getAddressRepository().initAddress(address);
         user.setAddress(address);
 
         context.getUserRepository().initUser(user);
 
         System.out.println("You Registered Successfully!");
-        System.out.println("Welcome, "+user.getFirstName());
+        System.out.println("Welcome, " + user.getFirstName());
         userMenu(user);
+    }catch(Exception e){
+        System.out.println("You cannot Register with this username!");
+
+    }
+
 
 
     }
 
     public void productMenu(User user) {
         System.out.println("List of Products:");
-
-        String findProductsQuery = "select new Product(id,name,model,price,quantity) from Product";
-        TypedQuery<Product> query = context.getEntityManagerFactory().createEntityManager().createQuery(findProductsQuery, Product.class);
-        ArrayList<Product> entries = (ArrayList<Product>) query.getResultList();
-
-        for(Product e : entries){
-            System.out.println("=================================");
-            System.out.print(e.getId()+". ");
-            System.out.println(e.getName()+"\tTitle: "+e.getModel()+"\nQuantity: "+e.getQuantity()+"\tPrice: "+e.getPrice());
-        }
-        System.out.println("=================================");
+        context.getProductRepository().printProducts();
 
         if(user.getUsername() == null)
             firstMenu();
-
     }
     //End First Menu
     //User Menu
@@ -169,24 +163,8 @@ public class Menu {
 
     public void userCartMenu(User user){
         System.out.println(user.getFirstName()+"'s Cart Status:");
-
-        String findProductsInCartQuery = "from Cart where user=:user";
-        TypedQuery<Cart> query = context.getEntityManagerFactory().createEntityManager().createQuery(findProductsInCartQuery, Cart.class);
-        query.setParameter("user",user);
-
-        List<Cart> cart = query.getResultList();
-        Long totalPrice = 0L;
-        for(Cart c : cart){
-            System.out.println("============================");
-            System.out.print(c.getId()+". "+c.getProduct().getName());
-            System.out.println("\tQuantity: "+c.getQuantity()+"\tPrice: "+c.getProduct().getPrice());
-            totalPrice = totalPrice + c.getProduct().getPrice()*c.getQuantity();
-        }
-        System.out.println("Total Price: "+totalPrice);
-        System.out.println("============================");
-
+        context.getCartRepository().printCart(user);
         userMenu(user);
-
     }
 
     public void userAddProductMenu(User user){
