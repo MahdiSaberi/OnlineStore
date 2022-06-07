@@ -4,6 +4,7 @@ import com.onlinestore.project.base.domain.Product;
 import com.onlinestore.project.base.repository.imlp.BaseRepositoryImpl;
 import com.onlinestore.project.base.util.ApplicationContext;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
@@ -49,6 +50,15 @@ public class ProductRepository extends BaseRepositoryImpl<Object, Product> {
             System.out.println(e.getName()+"\tTitle: "+e.getModel()+"\nQuantity: "+e.getQuantity()+"\tPrice: "+e.getPrice());
         }
         System.out.println("=================================");
+    }
+
+    public Product findById(Long id) {
+        EntityManagerFactory emf = context.getEntityManagerFactory();
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Product p = em.find(Product.class,id);
+        em.getTransaction().commit();
+        return p;
     }
 
 }

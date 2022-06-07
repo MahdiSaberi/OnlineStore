@@ -31,7 +31,6 @@ public class CartRepository extends BaseRepositoryImpl<Object, Cart> {
         User u = em.find(User.class,userId);
         Product p = em.find(Product.class,productId);
 
-
         String firstTimeProduct = "from Cart where user=:user and product=:product";
         TypedQuery<Cart> query = context.getEntityManagerFactory().createEntityManager().createQuery(firstTimeProduct, Cart.class);
         query.setParameter("user",u);
@@ -66,6 +65,13 @@ public class CartRepository extends BaseRepositoryImpl<Object, Cart> {
                     break;
                 }
             }
+        }
+
+        if(p.getQuantity() != 0 && p.getQuantity() != null){
+            p.setQuantity(p.getQuantity()-1);
+            em.getTransaction().begin();
+            em.merge(p);
+            em.getTransaction().commit();
         }
 
         System.out.println("Added!");
@@ -110,6 +116,13 @@ public class CartRepository extends BaseRepositoryImpl<Object, Cart> {
 
                 }
             }
+
+        if(p.getQuantity() != null){
+            p.setQuantity(p.getQuantity()+1);
+            em.getTransaction().begin();
+            em.merge(p);
+            em.getTransaction().commit();
+        }
     }
 
     public void settle(User user){

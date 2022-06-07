@@ -1,5 +1,6 @@
 package com.onlinestore.project;
 
+import com.onlinestore.project.base.domain.Product;
 import com.onlinestore.project.base.domain.User;
 import com.onlinestore.project.base.repository.CategoryRepository;
 import com.onlinestore.project.base.repository.ProductRepository;
@@ -13,11 +14,10 @@ import javax.persistence.EntityTransaction;
 public class Application {
     public static void main(String[] args) {
         ApplicationContext context = new ApplicationContext();
-        context.getEntityManagerFactory().createEntityManager();
-        context.getProductRepository().initProduct();
+        //EntityManager em = context.getEntityManagerFactory().createEntityManager();
+        //context.getProductRepository().initProduct();
         Menu menu = new Menu();
         menu.firstMenu();
-        //menu.loginMenu();
         System.out.println("DONE!");
     }
 }

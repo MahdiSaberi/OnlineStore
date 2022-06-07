@@ -2,6 +2,7 @@ package com.onlinestore.project.base.repository.imlp;
 
 import com.onlinestore.project.base.domain.BaseDomain;
 import com.onlinestore.project.base.domain.Category;
+import com.onlinestore.project.base.domain.Product;
 import com.onlinestore.project.base.repository.BaseRepository;
 
 import javax.persistence.EntityManager;
@@ -31,21 +32,13 @@ public abstract class BaseRepositoryImpl<T, C> implements BaseRepository<T, C> {
         return null;
     }
 
-    public C save(T t) {
-        return null;
-    }
-
     @Override
     public C delete(T id) {
         return null;
     }
 
     @Override
-    public C find(T t) {
-        em = emf.createEntityManager();
-        em.getTransaction().begin();
-        //em.find();
-        em.getTransaction().commit();
+    public C findById(T id) {
         return null;
     }
 

@@ -3,7 +3,7 @@ package com.onlinestore.project.base.domain;
 import javax.persistence.*;
 import java.util.List;
 @Entity
-public class Category extends BaseDomain<Long> {
+public class Category extends BaseDomain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "cat_gen")

@@ -7,7 +7,8 @@ import java.util.Set;
 public class Cart extends BaseDomain{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "cart_gen")
+    @SequenceGenerator(name = "cart_gen",sequenceName = "cart_seq")
     private Long id;
 
     @OneToOne//(mappedBy = "cart")

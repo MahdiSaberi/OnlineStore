@@ -1,23 +1,21 @@
 package com.onlinestore.project.base.domain;
 
-public class BaseDomain<T> {
-    private T id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-    private String name;
 
-    public T getId() {
+public class BaseDomain {
+
+    private Long id;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(T id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
