@@ -85,7 +85,8 @@ public class Menu {
 
         System.out.println("Email:");
         String email = context.getStringScanner().nextLine();
-    try {
+
+        try {
         User user = new User(firstName, lastName, userame, password);
         user.setEmail(email);
 
@@ -102,7 +103,7 @@ public class Menu {
         userMenu(user);
     }catch(Exception e){
         System.out.println("You cannot Register with this username!");
-
+        firstMenu();
     }
 
 
