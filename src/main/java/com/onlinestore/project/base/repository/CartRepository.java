@@ -155,7 +155,7 @@ public class CartRepository extends BaseRepositoryImpl<Object, Cart> {
         Long totalPrice = 0L;
         for(Cart c : cart){
             System.out.println("============================");
-            System.out.print(c.getId()+". "+c.getProduct().getName());
+            System.out.print(c.getProduct().getName());
             System.out.println("\tQuantity: "+c.getQuantity()+"\tPrice: "+c.getProduct().getPrice());
             totalPrice = totalPrice + c.getProduct().getPrice()*c.getQuantity();
         }
