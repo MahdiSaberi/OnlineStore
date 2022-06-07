@@ -8,7 +8,8 @@ import javax.persistence.*;
 public class User extends BaseDomain{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "user_gen")
+    @SequenceGenerator(name = "user_gen",sequenceName = "user_seq")
     private Long id;
 
     @Column(name = "first_name")

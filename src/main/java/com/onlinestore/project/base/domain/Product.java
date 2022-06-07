@@ -8,7 +8,8 @@ import java.util.Set;
 public class Product extends BaseDomain {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "product_gen")
+    @SequenceGenerator(name = "product_gen",sequenceName = "product_seq")
     private Long id;
 
     @Column

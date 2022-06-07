@@ -6,7 +6,8 @@ import javax.persistence.*;
 public class Address extends BaseDomain {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "address_gen")
+    @SequenceGenerator(name = "address_gen",sequenceName = "address_seq")
     private Long id;
 
     @Column(name = "street")

@@ -9,7 +9,8 @@ import java.util.List;
 public class City extends BaseDomain{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "city_gen")
+    @SequenceGenerator(name = "city_gen",sequenceName = "city_seq")
     private Long id;
 
     @Column(name = "name",unique = true)

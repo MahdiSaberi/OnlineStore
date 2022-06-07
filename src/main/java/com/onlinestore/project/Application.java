@@ -14,7 +14,7 @@ public class Application {
     public static void main(String[] args) {
         ApplicationContext context = new ApplicationContext();
         context.getEntityManagerFactory().createEntityManager();
-        //context.getProductRepository().initProduct();
+        context.getProductRepository().initProduct();
         Menu menu = new Menu();
         menu.firstMenu();
         //menu.loginMenu();

@@ -6,7 +6,8 @@ import java.util.List;
 public class Category extends BaseDomain<Long> {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "cat_gen")
+    @SequenceGenerator(name = "cat_gen",sequenceName = "cat_seq")
     private Long id;
 
     @Column
